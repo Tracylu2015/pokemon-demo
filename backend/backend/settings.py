@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -80,9 +81,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'OPTIONS': {
-            'passfile': '.pgpass',
-        },
+        'NAME': os.getenv('PG_DB_NAME', 'demo'),
+        'USER': os.getenv('PG_USER', 'demo'),
+        'PASSWORD': os.getenv('PG_PASS', 'demo'),
+        'HOST': os.getenv('PG_HOST', 'localhost'),
+        'PORT': int(os.getenv('PG_PORT', 5432))
     }
 }
 
