@@ -1,7 +1,8 @@
 from django.urls import path
 
-from . import views
+from .views import pokemon, user
 
 urlpatterns = [
-    path('pokemon', views.search, name='search'),
+    path('pokemon', pokemon.search, name='search'),
+    path('user/login', user.login, name='login'),
 ]
