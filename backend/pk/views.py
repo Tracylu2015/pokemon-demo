@@ -28,12 +28,12 @@ def search(request, offset=0, limit=20):
             if url:
                 pk_resp = requests.get(url)
                 pk_data = pk_resp.json()
-                pk_exp = pk_data.get('base_experience')
+
                 pk_image = pk_data.get('sprites', {}).get('other', {}).get('official-artwork', {}).get('front_default')
-                pk_weight = pk_data.get('weight')
-                data['exp'] = pk_exp
                 data['image'] = pk_image
-                data['weight'] = pk_weight
+                data['id'] = pk_data.get('id')
+                data['exp'] =  pk_data.get('base_experience')
+                data['weight'] = pk_data.get('weight')
         except Exception:
             continue
         respResult['data'].append(data)
