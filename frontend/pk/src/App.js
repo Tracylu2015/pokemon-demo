@@ -6,6 +6,7 @@ import LoginPage from './views/LoginPage';
 import MainPage from './views/MainPage';
 import CurrentUser from './context/CurrentUser'
 import {useState} from 'react'
+import SearchPage from './views/SearchPage';
 
 function App() {
   axios.defaults.withCredentials = true
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />}/>
         <Route path="/user/login" element={<LoginPage />}/>
+        <Route path="/pokemon/search/:text" element={<SearchPage />}/>
       </Routes>
       </CurrentUser.Provider>
     </BrowserRouter >

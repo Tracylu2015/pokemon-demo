@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from pk.models.pokemon_model import Pokemon
 from pk.models.user_model import UserFavorite
 from django.core.exceptions import ObjectDoesNotExist
+from django.forms.models import model_to_dict
 
 # Create your views here.
 
@@ -60,6 +61,16 @@ def search(request):
     respResult['size'] = len(respResult['data'])
     respResult['maxPage'] = main_resp.get('count', 1126) // limit
     return JsonResponse(respResult, safe=False)
+
+
+def search_pokemon(request):
+    search_body = json.loads(request.body)
+    text = search_body.get('text')
+    pokemons = Pokemon.objects.filter(name__contains=text)
+    data = []
+    for p in pokemons:
+        data.append(model_to_dict(p))
+    return JsonResponse(data, safe=False)
 
 
 def add_favorite_pokemon(request):
