@@ -10,7 +10,7 @@ const SearchPage = () => {
 
     useEffect(() => {
         let user_id = context.currentUser.id
-        axios.post('http://localhost:8000/api/pokemon/search', {text, user_id})
+        axios.post('http://localhost:8000/api/pokemon/search', { text, user_id })
             .then(res => {
                 setResults([...res.data])
             })
@@ -21,9 +21,12 @@ const SearchPage = () => {
         <div>
             <h2>Search result from favorites with {text}</h2>
             <ul>
-                {results.map((p, i) => (
+                {results.length === 0
+                ? <h4>No results found!</h4>
+                : results.map((p, i) => (
                     <li key={i}>{p.name}</li>
-                ))}
+                ))
+            }
             </ul>
         </div>
     )
