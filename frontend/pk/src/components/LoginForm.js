@@ -18,6 +18,7 @@ const LoginForm = () => {
         axios.post('http://localhost:8000/api/user/login', { email, password })
             .then(res => {
                 context.setCurrentUser(res.data)
+                localStorage.setItem('user', JSON.stringify(res.data))
                 navigate('/')
             })
             .catch(err => {

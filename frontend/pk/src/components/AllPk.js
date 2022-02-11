@@ -21,7 +21,7 @@ const AllPk = () => {
                 setMaxPage(res.data.maxPage)
             })
             .catch(err => console.log(err))
-        if (context.currentUser != null && addFav.size === 0) {
+        if (context.currentUser != null) {
             let user_id = context.currentUser.id
             axios.get(`http://localhost:8000/api/pokemon/get_fav/${user_id}`) 
             .then(res=>{

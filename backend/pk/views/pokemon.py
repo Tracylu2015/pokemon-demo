@@ -100,7 +100,12 @@ def add_favorite_pokemon(request):
 
 
 def remove_user_favorite_pokemon(request):
-    print(request.user)
+    fav_body = json.loads(request.body)
+    pokemon_id = fav_body.get('pokemon_id')
+    pokemon = Pokemon.objects.get(id=pokemon_id)
+    user = User.objects.get(id=fav_body.get('user_id'))
+    resp = UserFavorite.objects.filter(user=user, pokemon=pokemon).delete()
+    print(resp)
     return HttpResponse()
 
 
@@ -111,5 +116,5 @@ def get_user_favorite_pokemon(request, user_id):
     )
     data = []
     for fav in user_favs:
-        data.append(fav.id)
+        data.append(fav.pokemon.id)
     return JsonResponse(data, safe=False)

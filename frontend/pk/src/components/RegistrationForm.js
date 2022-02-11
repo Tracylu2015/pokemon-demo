@@ -20,6 +20,7 @@ const RegistrationForm = () => {
         axios.post('http://localhost:8000/api/user/register', { firstName, lastName, email, password, confirmPassword })
             .then(res => {
                 context.setCurrentUser(res.data)
+                localStorage.setItem('user', JSON.stringify(res.data))
                 setErrors([])
                 navigate('/')
             })

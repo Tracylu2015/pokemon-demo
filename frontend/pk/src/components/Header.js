@@ -14,6 +14,11 @@ const Header = () => {
         navigate(`/pokemon/search/${text}`)
         setText("")
     }
+    const logout = () => {
+        context.setCurrentUser(null)
+        localStorage.clear();
+        navigate("/")
+    }
 
     return (
         <Navbar bg="light" expand="lg">
@@ -27,7 +32,7 @@ const Header = () => {
                                     <input type="text" name="search" placeholder="Search" value={text} onChange={(e) => setText(e.target.value)}></input>&nbsp;&nbsp;
                                         <button className="btn btn-primary">Search</button>&nbsp;&nbsp;
                                 </form>
-                                <button className="btn btn-primary">Logout</button>
+                                <button className="btn btn-primary" onClick ={logout}>Logout</button>
                             </Navbar.Collapse>
                         </Navbar.Collapse>
                     </div>

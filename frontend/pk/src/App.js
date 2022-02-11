@@ -7,10 +7,19 @@ import MainPage from './views/MainPage';
 import CurrentUser from './context/CurrentUser'
 import {useState} from 'react'
 import SearchPage from './views/SearchPage';
+import context from 'react-bootstrap/esm/AccordionContext';
 
 function App() {
   axios.defaults.withCredentials = true
   const [currentUser, setCurrentUser] = useState()
+
+  if (currentUser == null) {
+    if (localStorage.getItem("user") !== null) {
+      let user = JSON.parse(localStorage.getItem("user"))
+      setCurrentUser(user)
+    }
+  }
+
 
   return (
     <BrowserRouter>
