@@ -101,9 +101,4 @@ def get_user_favorite_pokemon(request, user_id):
     data = []
     for fav in user_favs:
         data.append(fav.id)
-    # pokemon_id = fav_body.get('pokemon_id')
-    # UserFavorite.objects.create_user_favorite(
-    #     user_id = fav_body.get('user_id'),
-    #     favorite_pk_id = pokemon_id
-    # ).save()
     return JsonResponse(data, safe=False)
