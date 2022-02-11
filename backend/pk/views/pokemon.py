@@ -1,8 +1,11 @@
+import json
 from django.http import JsonResponse
 from django.shortcuts import render
 from rest_framework import viewsets
 import requests
 from django.core.cache import cache
+
+from backend.pk.models import UserFavorite
 
 # Create your views here.
 
@@ -50,3 +53,20 @@ def search(request):
     respResult['size'] = len(respResult['data'])
     respResult['maxPage'] = main_resp.get('count', 1126) // limit
     return JsonResponse(respResult, safe=False)
+
+
+def add_favorite_pokemon(request):
+    fav_body = json.loads(request.body)
+    pokemon_id = fav_body.get('pokemon_id')
+    UserFavorite.objects.create_user_favorite(
+        user_id = fav_body.get('user_id'),
+        favorite_pk_id = pokemon_id
+    ).save()
+
+def get_user_favorite_pokemon(request):
+    print(request.user)
+    # pokemon_id = fav_body.get('pokemon_id')
+    # UserFavorite.objects.create_user_favorite(
+    #     user_id = fav_body.get('user_id'),
+    #     favorite_pk_id = pokemon_id
+    # ).save()

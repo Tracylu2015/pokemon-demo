@@ -1,11 +1,14 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate';
+import unfav from '../images/likeIt.png'
+import fav from '../images/like_filled.png'
 
 const AllPk = () => {
     const [pokes, setPokes] = useState([])
     const [size, setSize] = useState(0)
     const [maxPage, setMaxPage] = useState(0)
+    const [addFav, setAddFav] = useState(new Set())
 
     useEffect(() => {
         axios.get(`http://localhost:8000/api/pokemon?page=${size}`)
@@ -15,11 +18,24 @@ const AllPk = () => {
             })
             .catch(err => console.log(err))
     }, [size])
-    
+
     const handlePageClick = (event) => {
         console.log(event)
         setSize(event.selected)
-    };
+    }
+
+    const AddFavList = (pokeId) => {
+        if (addFav.has(pokeId)){
+            let newFav = new Set(addFav)
+            newFav.delete(pokeId)
+            setAddFav(newFav)
+        } else{
+            let newFav = new Set(addFav)
+            newFav.add(pokeId)
+            setAddFav(newFav)
+        }
+    }
+
 
     return (
         <div>
@@ -30,6 +46,7 @@ const AllPk = () => {
                         <th>Name</th>
                         <th>Basic Experience</th>
                         <th>Weight</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
 
@@ -41,6 +58,10 @@ const AllPk = () => {
                                 <td>{poke.name}</td>
                                 <td>{poke.exp}</td>
                                 <td>{poke.weight}</td>
+                                {addFav.has(poke.id)
+                                    ? <td><input type="image" onClick={() => AddFavList(poke.id)} value="true" src={fav} alt="Like" style={{ width: "20px", height: "20px" }} /></td>
+                                    : <td><input type="image" onClick={() => AddFavList(poke.id)} value="false" src={unfav} alt="unLike" style={{ width: "20px", height: "20px" }} /></td>
+                                }
                             </tr>
                         ))
                     }

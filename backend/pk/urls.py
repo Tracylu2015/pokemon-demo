@@ -4,6 +4,8 @@ from .views import pokemon, user
 
 urlpatterns = [
     path('pokemon', pokemon.search, name='search'),
+    path('pokemon/add_fav', pokemon.add_favorite_pokemon, name='add_fav'),
+    path('pokemon/get_fav', pokemon.get_user_favorite_pokemon, name='get_fav'),
     path('user/login', user.login, name='user_login'),
     path('user/register', user.register, name='user_register'),
 ]
