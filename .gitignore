@@ -1,3 +1,6 @@
-.pgpass
+# Python related files
 venv
+__pycache__
+
+# local file cache
 pokemon_cache

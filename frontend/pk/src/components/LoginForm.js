@@ -1,5 +1,6 @@
 import axios from 'axios'
-import React, { useState, useContext} from 'react'
+import React, { useState, useContext } from 'react'
+import { Container } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import currentUser from '../context/CurrentUser'
 
@@ -31,14 +32,20 @@ const LoginForm = () => {
     console.log(context.currentUser)
 
     return (
-        <div>
+        <Container>
             <form onSubmit={Login}>
                 {errors.map((err, i) => <p key={i}>{err}</p>)}
-                <input onChange={e => setEmail(e.target.value)} type="text" name="email" placeholder="Email" value={email} />
-                <input onChange={e => setPassword(e.target.value)} type="password" name="password" placeholder="Password" value={password} />
-                <button>Login</button>
+                <div className="form-group">
+                    <input onChange={e => setEmail(e.target.value)} type="text" name="email" placeholder="Email" value={email} className="form-control"/>
+                </div>
+                <div className="form-group">
+                    <input onChange={e => setPassword(e.target.value)} type="password" name="password" placeholder="Password" value={password} className="form-control"/>
+                </div>
+                <div className="form-group">
+                    <button className="btn btn-primary">Login</button>
+                </div>
             </form>
-        </div>
+        </Container>
     )
 }
 

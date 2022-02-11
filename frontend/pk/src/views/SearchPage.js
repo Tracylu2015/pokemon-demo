@@ -1,7 +1,9 @@
 import axios from 'axios'
 import React, { useEffect, useState, useContext } from 'react'
+import { Container } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import currentUser from '../context/CurrentUser'
+
 
 const SearchPage = () => {
     const { text } = useParams()
@@ -15,10 +17,10 @@ const SearchPage = () => {
                 setResults([...res.data])
             })
             .catch(err => console.log(err))
-    }, [])
+    }, [text])
     console.log(results)
     return (
-        <div>
+        <Container>
             <h2>Search result from favorites with {text}</h2>
             <ul>
                 {results.length === 0
@@ -28,7 +30,7 @@ const SearchPage = () => {
                 ))
             }
             </ul>
-        </div>
+        </Container>
     )
 }
 

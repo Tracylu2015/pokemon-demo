@@ -1,12 +1,13 @@
 import React from 'react'
+import { Container } from 'react-bootstrap'
 
 import AllPk from '../components/AllPk'
 
 const MainPage = () => {
     return (
-        <div>
+        <Container>
             <AllPk />
-        </div>
+        </Container>
     )
 }
 

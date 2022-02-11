@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import currentUser from '../context/CurrentUser'
+import { Container } from 'react-bootstrap'
 
 const RegistrationForm = () => {
 
@@ -33,17 +34,29 @@ const RegistrationForm = () => {
     }
 
     return (
-        <div>
+        <Container>
             <form onSubmit={Register}>
                 {errors.map((err, i) => <p key={i}>{err}</p>)}
-                <input onChange={e => setFirstName(e.target.value)} type="text" name="firstName" placeholder="First Name" />
-                <input onChange={e => setLastName(e.target.value)} type="text" name="lastName" placeholder="Last Name" />
-                <input onChange={e => setEmail(e.target.value)} type="text" name="email" placeholder="Email" />
-                <input onChange={e => setPassword(e.target.value)} type="password" name="password" placeholder="Password" />
-                <input onChange={e => setConfirmPassword(e.target.value)} type="password" name="confirm_password" placeholder="Confirm Password" />
-                <button>Register</button>
+                <div className="form-group">
+                    <input onChange={e => setFirstName(e.target.value)} type="text" name="firstName" placeholder="First Name" className="form-control" />
+                </div>
+                <div className="form-group">
+                    <input onChange={e => setLastName(e.target.value)} type="text" name="lastName" placeholder="Last Name" className="form-control" />
+                </div>
+                <div className="form-group">
+                    <input onChange={e => setEmail(e.target.value)} type="text" name="email" placeholder="Email" className="form-control" />
+                </div>
+                <div className="form-group">
+                    <input onChange={e => setPassword(e.target.value)} type="password" name="password" placeholder="Password" className="form-control" />
+                </div>
+                <div className="form-group">
+                    <input onChange={e => setConfirmPassword(e.target.value)} type="password" name="confirm_password" placeholder="Confirm Password" className="form-control" />
+                </div>
+                <div className="form-group">
+                    <button className="btn btn-primary">Register</button>
+                </div>
             </form>
-        </div>
+        </Container>
     )
 }
 

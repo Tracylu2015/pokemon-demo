@@ -1,7 +1,7 @@
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import axios from 'axios'
-import Navbar from './components/Navbar';
+import Header from './components/Header';
 import LoginPage from './views/LoginPage';
 import MainPage from './views/MainPage';
 import CurrentUser from './context/CurrentUser'
@@ -15,7 +15,7 @@ function App() {
   return (
     <BrowserRouter>
       <CurrentUser.Provider value={{ currentUser, setCurrentUser }}>
-      <Navbar />
+      <Header />
       <Routes>
         <Route path="/" element={<MainPage />}/>
         <Route path="/user/login" element={<LoginPage />}/>

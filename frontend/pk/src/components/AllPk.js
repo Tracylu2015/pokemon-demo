@@ -4,6 +4,7 @@ import ReactPaginate from 'react-paginate';
 import unfav from '../images/likeIt.png'
 import fav from '../images/like_filled.png'
 import currentUser from '../context/CurrentUser'
+import {Table} from 'react-bootstrap'
 
 const AllPk = () => {
     const [pokes, setPokes] = useState([])
@@ -63,7 +64,7 @@ const AllPk = () => {
 
     return (
         <div>
-            <table>
+            <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>id</th>
@@ -92,7 +93,7 @@ const AllPk = () => {
                     }
                 </tbody>
 
-            </table>
+            </Table>
             <ReactPaginate
                 previousLabel="Previous"
                 nextLabel="Next"
