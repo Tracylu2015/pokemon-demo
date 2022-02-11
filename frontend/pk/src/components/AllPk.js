@@ -1,16 +1,26 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import ReactPaginate from 'react-paginate';
 
 const AllPk = () => {
     const [pokes, setPokes] = useState([])
+    const [size, setSize] = useState(0)
+    const [maxPage, setMaxPage] = useState(20)
+
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/pokemon`)
+        axios.get(`http://localhost:8000/api/pokemon?page=${size}`)
             .then(res => {
-                setPokes([...pokes, ...res.data.data])
+                setPokes([...res.data.data])
+                // setMaxPage(res.data.data.maxPage)
             })
             .catch(err => console.log(err))
-    }, [])
-    console.log(pokes)
+    }, [size])
+    
+    const handlePageClick = (event) => {
+        console.log(event)
+        setSize(event.selected)
+    };
+
     return (
         <div>
             <table>
@@ -37,6 +47,25 @@ const AllPk = () => {
                 </tbody>
 
             </table>
+            <ReactPaginate
+                previousLabel="Previous"
+                nextLabel="Next"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                breakLabel="..."
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                pageCount={maxPage}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName="pagination"
+                activeClassName="active"
+            />
         </div>
     )
 }
