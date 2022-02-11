@@ -84,7 +84,6 @@ def add_favorite_pokemon(request):
         # Fetch and save pokemon if does not exist in database
         url = PK_DETAIL_URL.format(pokemon_id=pokemon_id)
         data = get_pokemon(url)
-        print(data)
         pokemon = Pokemon.objects.create(
             **data
         )
