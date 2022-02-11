@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const RegistrationForm = () => {
 
@@ -10,14 +10,14 @@ const RegistrationForm = () => {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [errors, setErrors] = useState([])
-    const history = useHistory()
+    const navigate = useNavigate()
 
     const Register = (e) => {
         e.preventDefault()
         axios.post('http://localhost:8000/api/user/register', { firstName, lastName, email, password, confirmPassword })
             .then(res => {
                 setErrors([])
-                history.push('/')
+                navigate('/')
             })
             .catch(err => {
                 const errorResponse = err.response.data.errors

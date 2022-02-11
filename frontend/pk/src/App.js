@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // import axios from 'axios'
 import Navbar from './components/Navbar';
 import LoginPage from './views/LoginPage';
@@ -11,15 +11,10 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      <Switch>
-        <Route path="/" exact>
-          <MainPage />
-        </Route>
-        <Route path="/user/login" exact>
-          <LoginPage />
-        </Route>
-
-      </Switch>
+      <Routes>
+        <Route path="/" element={<MainPage />}/>
+        <Route path="/user/login" element={<LoginPage />}/>
+      </Routes>
     </BrowserRouter >
   );
 }

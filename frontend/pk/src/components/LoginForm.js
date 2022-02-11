@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -8,14 +8,14 @@ const LoginForm = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errors, setErrors] = useState([])
-    const history = useHistory()
+    const navigate = useNavigate()
 
 
     const Login = (e) => {
         e.preventDefault()
         axios.post('http://localhost:8000/api/user/login', { email, password })
             .then(res => {
-                history.push('/')
+                navigate('/')
 
             })
             .catch(err => {
