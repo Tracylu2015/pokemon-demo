@@ -140,7 +140,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'pk_cache',
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': 'pokemon_cache',
     }
 }
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.file'
+SECRET_KEY = 'n5xb68c/4c4Zf129iLAIOKIYxxmJk4w'

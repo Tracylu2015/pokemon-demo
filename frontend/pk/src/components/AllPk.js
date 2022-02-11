@@ -15,11 +15,21 @@ const AllPk = () => {
     useEffect(() => {
         axios.get(`http://localhost:8000/api/pokemon?page=${size}`)
             .then(res => {
+                console.log(res.data)
                 setPokes([...res.data.data])
                 setMaxPage(res.data.maxPage)
             })
             .catch(err => console.log(err))
-    }, [size])
+        if (context.currentUser != null && addFav.size === 0) {
+            let user_id = context.currentUser.id
+            axios.get(`http://localhost:8000/api/pokemon/get_fav/${user_id}`) 
+            .then(res=>{
+                console.log(res.data)
+                let newFav = new Set(res.data)
+                setAddFav(newFav)
+            })
+        }   
+    }, [size, context.currentUser])
 
     const handlePageClick = (event) => {
         console.log(event)
@@ -27,11 +37,23 @@ const AllPk = () => {
     }
 
     const AddFavList = (pokeId) => {
+        console.log(context.currentUser)
+        let user_id= context.currentUser.id
+        let pokemon_id = pokeId
+
         if (addFav.has(pokeId)){
+            axios.post(`http://localhost:8000/api/pokemon/remove_fav`,{user_id, pokemon_id})
+            .then((res) => {
+                console.log(res.data)
+            })
             let newFav = new Set(addFav)
             newFav.delete(pokeId)
             setAddFav(newFav)
-        } else{
+        } else {
+            axios.post(`http://localhost:8000/api/pokemon/add_fav`, { user_id, pokemon_id })
+                .then((res) => {
+                    console.log(res.data)
+                })
             let newFav = new Set(addFav)
             newFav.add(pokeId)
             setAddFav(newFav)
@@ -60,10 +82,11 @@ const AllPk = () => {
                                 <td>{poke.name}</td>
                                 <td>{poke.exp}</td>
                                 <td>{poke.weight}</td>
-                                {addFav.has(poke.id)
+                                {context.currentUser != null? 
+                                addFav.has(poke.id)
                                     ? <td><input type="image" onClick={() => AddFavList(poke.id)} value="true" src={fav} alt="Like" style={{ width: "20px", height: "20px" }} /></td>
                                     : <td><input type="image" onClick={() => AddFavList(poke.id)} value="false" src={unfav} alt="unLike" style={{ width: "20px", height: "20px" }} /></td>
-                                }
+                                : null}
                             </tr>
                         ))
                     }

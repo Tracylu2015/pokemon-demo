@@ -1,5 +1,5 @@
 import json
-from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
+from django.http import  HttpResponseNotFound, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.forms.models import model_to_dict
