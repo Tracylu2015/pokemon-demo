@@ -17,7 +17,8 @@ def search(request):
         PK_URL.format(limit=limit, offset=offset)
     )
     resp.raise_for_status()
-    results = resp.json().get('results')
+    main_resp = resp.json()
+    results = main_resp.get('results')
 
     respResult = {
         'data': []
@@ -47,5 +48,5 @@ def search(request):
         respResult['data'].append(data)
 
     respResult['size'] = len(respResult['data'])
-    respResult['offset'] = offset + len(respResult['data'])
+    respResult['maxPage'] = main_resp.get('count', 1126) // limit
     return JsonResponse(respResult, safe=False)

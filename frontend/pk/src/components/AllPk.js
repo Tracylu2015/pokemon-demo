@@ -5,13 +5,13 @@ import ReactPaginate from 'react-paginate';
 const AllPk = () => {
     const [pokes, setPokes] = useState([])
     const [size, setSize] = useState(0)
-    const [maxPage, setMaxPage] = useState(20)
+    const [maxPage, setMaxPage] = useState(0)
 
     useEffect(() => {
         axios.get(`http://localhost:8000/api/pokemon?page=${size}`)
             .then(res => {
                 setPokes([...res.data.data])
-                // setMaxPage(res.data.data.maxPage)
+                setMaxPage(res.data.maxPage)
             })
             .catch(err => console.log(err))
     }, [size])
