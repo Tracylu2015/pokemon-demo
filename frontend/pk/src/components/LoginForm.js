@@ -1,6 +1,7 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useState, useContext} from 'react'
 import { useNavigate } from 'react-router-dom'
+import currentUser from '../context/CurrentUser'
 
 
 
@@ -9,14 +10,14 @@ const LoginForm = () => {
     const [password, setPassword] = useState('')
     const [errors, setErrors] = useState([])
     const navigate = useNavigate()
-
+    const context = useContext(currentUser)
 
     const Login = (e) => {
         e.preventDefault()
         axios.post('http://localhost:8000/api/user/login', { email, password })
             .then(res => {
+                context.setCurrentUser(res.data)
                 navigate('/')
-
             })
             .catch(err => {
                 const errorResponse = err.response.data.errors
@@ -27,6 +28,7 @@ const LoginForm = () => {
                 setErrors(errArr)
             })
     }
+    console.log(context.currentUser)
 
     return (
         <div>

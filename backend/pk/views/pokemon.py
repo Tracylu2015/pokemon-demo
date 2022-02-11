@@ -5,7 +5,7 @@ from rest_framework import viewsets
 import requests
 from django.core.cache import cache
 
-from backend.pk.models import UserFavorite
+from pk.models import UserFavorite
 
 # Create your views here.
 

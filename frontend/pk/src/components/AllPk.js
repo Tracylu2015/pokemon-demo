@@ -1,14 +1,16 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import ReactPaginate from 'react-paginate';
 import unfav from '../images/likeIt.png'
 import fav from '../images/like_filled.png'
+import currentUser from '../context/CurrentUser'
 
 const AllPk = () => {
     const [pokes, setPokes] = useState([])
     const [size, setSize] = useState(0)
     const [maxPage, setMaxPage] = useState(0)
     const [addFav, setAddFav] = useState(new Set())
+    const context = useContext(currentUser)
 
     useEffect(() => {
         axios.get(`http://localhost:8000/api/pokemon?page=${size}`)

@@ -1,18 +1,23 @@
 import json
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from django.views import View
+from django.forms.models import model_to_dict
 
-from backend.pk.models import UserFavorite
+# assuming obj is your model instance
 
 # Create your views here.
 
 
 def login(request, *args, **kwargs):
     login_user = json.loads(request.body)
-    user = authenticate(username=login_user.get('email'), password=login_user.get('password')) 
-    return HttpResponse(user)
+    user = authenticate(username=login_user.get('email'), password=login_user.get('password'))
+    if user is None:
+        return HttpResponseNotFound()
+    data = model_to_dict( user )
+    if 'password' in data:
+        del data['password']
+    return JsonResponse(data, safe=False)
 
 
 def register(request, *args, **kwargs):
@@ -24,4 +29,7 @@ def register(request, *args, **kwargs):
     ).save()
     
     user = User.objects.get(username=new_user.get('email'))
-    return HttpResponse(user)
+    data = model_to_dict( user )
+    if 'password' in data:
+        del data['password']
+    return JsonResponse(data, safe=False)
