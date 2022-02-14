@@ -24,6 +24,8 @@ python manage.py runserver
 ## Run frontend service
 ```
 cd frontend
+# Only run first time or adding new package
+npm install
 npm start
 ```
 
