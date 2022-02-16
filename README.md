@@ -5,7 +5,7 @@ This is a demo for using Pokemon API to create a React frontend and Python Djang
 - PostgreSQL needs to be install on local machine
 - PostgreSQL database, username and password need to be configured
 - Configure environment variables: 
-  |  PostgreSQL Configuratoin |   Environment Variable Name |    Default   |  
+  |  PostgreSQL Configuration |   Environment Variable Name |    Default   |  
   | ------------------------- | --------------------------- | ------------ |
   | NAME                      |  PG_DB_NAME                 |  demo        |
   | USER                      |  PG_USER                    |  demo        |   
